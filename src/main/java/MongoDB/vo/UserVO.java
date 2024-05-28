@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//@Document(collection = "user_voice") // 실제 몽고 DB 컬렉션 이름
+@Document(collection = "test") // 실제 몽고 DB 컬렉션 이름
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,14 +16,22 @@ import lombok.Setter;
 public class UserVO {
 
 	@Id
+	private String phoneNumber;
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	private String nickName;
 	private String email;
 	private String password;
 
-	public UserVO(String nickName, String email, String password) {
-		this.nickName = nickName;
-		this.email = email;
-		this.password = password;
+	public UserVO(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getNickName() {

@@ -2,35 +2,47 @@ package com.example.RealVoice_Backend.Firebase;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import MongoDB.repository.UserVoiceRepository;
+import MongoDB.vo.UserVO;
 
 @Service
 @RestController
 public class UserVoiceController {
 
-//	@Autowired
-//	private UserVoiceService userVoiceService;
+	@Autowired
+	private UserVoiceRepository userVoiceRepository;
 
 	@CrossOrigin(origins = "*")
 	@PostMapping("/user/voice/register")
 	public ResponseEntity<String> register(@RequestBody Map<String, String> requestBody) {
-		String userId = requestBody.get("userId");
+		String userPhoneNumber = requestBody.get("userPhoneNumber");
 		// userId로 등록 로직 구현
+		UserVO userVO = new UserVO(userPhoneNumber);
+		userVO.setPhoneNumber(userPhoneNumber);
+		userVoiceRepository.save(userVO);
 		System.out.println("탐!!!");
 		return ResponseEntity.ok("Registration successful");
 	}
 
-	@GetMapping("/tt")
-	public void test() {
-		System.out.println("OK");
+	@GetMapping("/user/voice/{phoneNumber}")
+	public ResponseEntity<UserVO> getUserByPhoneNumber(@PathVariable String phoneNumber) {
+		UserVO userVO = userVoiceRepository.findByPhoneNumber(phoneNumber);
+		if (userVO != null) {
+			return ResponseEntity.ok(userVO);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
-
 //	@GetMapping("/{userVoiceId}")
 //	public ResponseEntity<UserVO> getUserVoiceById(@PathVariable String userVoiceId) {
 //		UserVO userVoice = userVoiceService.getUserVoiceById(userVoiceId);
