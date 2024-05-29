@@ -25,10 +25,11 @@ public class UserVoiceController {
 	@CrossOrigin(origins = "*")
 	@PostMapping("/user/voice/register")
 	public ResponseEntity<String> register(@RequestBody Map<String, String> requestBody) {
-		String userPhoneNumber = requestBody.get("userPhoneNumber");
-		// userId로 등록 로직 구현
-		UserVO userVO = new UserVO(userPhoneNumber);
-		userVO.setPhoneNumber(userPhoneNumber);
+		String callingCode = requestBody.get("callingCode");
+		String phoneNumber = requestBody.get("phoneNumber");
+		String nickName = requestBody.get("nickName");
+		
+		UserVO userVO = new UserVO(callingCode, phoneNumber, nickName);
 		userVoiceRepository.save(userVO);
 		System.out.println("탐!!!");
 		return ResponseEntity.ok("Registration successful");

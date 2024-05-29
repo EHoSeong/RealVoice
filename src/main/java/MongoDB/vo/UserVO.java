@@ -1,6 +1,5 @@
 package MongoDB.vo;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -8,15 +7,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Document(collection = "test") // 실제 몽고 DB 컬렉션 이름
+@Document(collection = "userInfo") // 실제 몽고 DB 컬렉션 이름
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserVO {
 
-	@Id
+	private String callingCode;
 	private String phoneNumber;
+	private String nickName;
+
+	public UserVO(String callingCode, String phoneNumber, String nickName) {
+		this.callingCode = callingCode;
+		this.phoneNumber = phoneNumber;
+		this.nickName = nickName;
+	}
+
+	public String getCallingCode() {
+		return callingCode;
+	}
+
+	public void setCallingCode(String callingCode) {
+		this.callingCode = callingCode;
+	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -26,36 +40,12 @@ public class UserVO {
 		this.phoneNumber = phoneNumber;
 	}
 
-	private String nickName;
-	private String email;
-	private String password;
-
-	public UserVO(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
 	public String getNickName() {
 		return nickName;
 	}
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 }
