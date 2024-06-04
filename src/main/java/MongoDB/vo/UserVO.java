@@ -14,14 +14,23 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserVO {
 
+	private String userUuid;
 	private String callingCode;
 	private String phoneNumber;
 	private String nickName;
 
-	public UserVO(String callingCode, String phoneNumber, String nickName) {
+	public UserVO(String userUuid, String callingCode, String phoneNumber, String nickName) {
+		this.userUuid = userUuid;
 		this.callingCode = callingCode;
 		this.phoneNumber = phoneNumber;
 		this.nickName = nickName;
+	}
+	public String getUserUuid() {
+		return userUuid;
+	}
+
+	public void setUserUuid(String userUuid) {
+		this.userUuid = userUuid;
 	}
 
 	public String getCallingCode() {
