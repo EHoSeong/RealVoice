@@ -22,9 +22,12 @@ public class UserVoiceService {
 	public UserVO findUserInfo(String phoneNumber) {
 		return userVoiceRepository.findUserInfo(phoneNumber);
 	}
-	public String makeUserCollection(String uuid) {
-		return userVoiceRepository.makeUserCollection(uuid);
-	}
+//	public String makeUserCollection(String uuid) {
+//		return userVoiceRepository.makeUserCollection(uuid);
+//	}
+//	@Autowired
+//	private MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+//	private final UserVoiceRepository userVoiceRepository;
 //
 //	public UserVoiceService(UserVoiceRepository userVoiceRepository) {
 //		this.userVoiceRepository = userVoiceRepository;

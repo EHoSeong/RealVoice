@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-@EnableMongoRepositories(basePackages = "MongoDB.repository")
+@EnableMongoRepositories(basePackages = "MongoDB.controller")
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.example.RealVoice_Backend" })
+@ComponentScan(basePackages = { "com.example.MongoDB" })
 public class RealVoiceBackApplication {
 
 	public static void main(String[] args) {
