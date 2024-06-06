@@ -1,13 +1,30 @@
 package MongoDB.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import MongoDB.repository.UserVoiceRepository;
+import MongoDB.vo.UserVO;
 
 @Service
 public class UserVoiceService {
+	@Autowired
+	private UserVoiceRepository userVoiceRepository;
 
-//	@Autowired
-//	private MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
-//	private final UserVoiceRepository userVoiceRepository;
+	
+	public void saveUser(UserVO user) {
+        userVoiceRepository.save(user);
+    }
+	
+	public UserVO getUserByPhoneNumber(String phoneNumber, String collectionName) {
+		return userVoiceRepository.findByPhoneNumber(phoneNumber, collectionName);
+	}
+	public UserVO findUserInfo(String phoneNumber) {
+		return userVoiceRepository.findUserInfo(phoneNumber);
+	}
+	public String makeUserCollection(String uuid) {
+		return userVoiceRepository.makeUserCollection(uuid);
+	}
 //
 //	public UserVoiceService(UserVoiceRepository userVoiceRepository) {
 //		this.userVoiceRepository = userVoiceRepository;

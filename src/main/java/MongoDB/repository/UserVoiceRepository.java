@@ -5,8 +5,12 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import MongoDB.vo.UserVO;
 
 public interface UserVoiceRepository extends MongoRepository<UserVO, String> {
-	// 사용자 이름으로 검색하기 위한 메서드
+	// 유저 정보 저장
 	UserVO save(UserVO user);
 
-	UserVO findByPhoneNumber(String phoneNumber);
+	String makeUserCollection(String uuid);
+	
+	UserVO findUserInfo(String phoneNumber);
+	
+	UserVO findByPhoneNumber(String phoneNumber, String collectionName);
 }
