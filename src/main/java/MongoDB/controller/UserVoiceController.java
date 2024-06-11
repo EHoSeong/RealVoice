@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonObject;
 
-import MongoDB.Service.UserVoiceService;
+import MongoDB.service.UserVoiceService;
 import MongoDB.vo.UserVO;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class UserVoiceController {
 
 	@Autowired
 	private UserVoiceService userVoiceService;
 
-	@CrossOrigin(origins = "*")
 	@PostMapping("/user/voice/register")
 	public ResponseEntity<String> register(@RequestBody Map<String, String> requestBody) {
 		String userUuid = requestBody.get("userUuid");

@@ -1,4 +1,4 @@
-package MongoDB.Service;
+package MongoDB.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +17,10 @@ public class UserVoiceService {
     }
 	
 	public UserVO getUserByPhoneNumber(String phoneNumber, String collectionName) {
-		return userVoiceRepository.findByPhoneNumber(phoneNumber, collectionName);
+		return userVoiceRepository.findByPhoneNumberAndCollectionName(phoneNumber, collectionName);
 	}
 	public UserVO findUserInfo(String phoneNumber) {
-		return userVoiceRepository.findUserInfo(phoneNumber);
+		return userVoiceRepository.findByPhoneNumber(phoneNumber);
 	}
 //	public String makeUserCollection(String uuid) {
 //		return userVoiceRepository.makeUserCollection(uuid);

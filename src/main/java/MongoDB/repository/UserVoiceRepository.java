@@ -6,11 +6,11 @@ import MongoDB.vo.UserVO;
 
 public interface UserVoiceRepository extends MongoRepository<UserVO, String> {
 	// 유저 정보 저장
-	UserVO save(UserVO user);
+//	UserVO save(UserVO user);
 
 	UserVO makeUserCollection(String uuid);
 	
-	UserVO findUserInfo(String phoneNumber);
+	UserVO findByPhoneNumber(String phoneNumber);
 	
-	UserVO findByPhoneNumber(String phoneNumber, String collectionName);
+	UserVO findByPhoneNumberAndCollectionName(String phoneNumber, String collectionName);
 }

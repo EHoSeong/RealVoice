@@ -18,6 +18,7 @@ public class UserVO {
 	private String callingCode;
 	private String phoneNumber;
 	private String nickName;
+	private String collectionName;
 
 	public UserVO(String userUuid, String callingCode, String phoneNumber, String nickName) {
 		this.userUuid = userUuid;
@@ -54,6 +55,13 @@ public class UserVO {
 	}
 
 	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	public String getCollectionName() {
+		return nickName;
+	}
+	
+	public void setCollectionName(String nickName) {
 		this.nickName = nickName;
 	}
 
