@@ -1,6 +1,8 @@
 package MongoDB.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import MongoDB.repository.UserVoiceRepository;
@@ -9,18 +11,32 @@ import MongoDB.vo.UserVO;
 @Service
 public class UserVoiceService {
 	@Autowired
+	private MongoTemplate mongoTemplate;
+//	@Autowired
 	private UserVoiceRepository userVoiceRepository;
 
-	
+	// 각 uuid별 컬렉션 저장
 	public void saveUser(UserVO user) {
-        userVoiceRepository.save(user);
-    }
-	
+		String collectionName = user.getUserUuid();
+		mongoTemplate.save(user, collectionName);
+	}
+
+	public void saveAdminUser(UserVO user) {
+		mongoTemplate.save(user, "adminDB");
+	}
+
 	public UserVO getUserByPhoneNumber(String phoneNumber, String collectionName) {
 		return userVoiceRepository.findByPhoneNumberAndCollectionName(phoneNumber, collectionName);
 	}
+
 	public UserVO findUserInfo(String phoneNumber) {
 		return userVoiceRepository.findByPhoneNumber(phoneNumber);
+	}
+
+	public UserVO findUserByUuid(String userUuid) {
+		String collectionName = userUuid;
+		Query query = new Query();
+		return mongoTemplate.findOne(query, UserVO.class, collectionName);
 	}
 //	public String makeUserCollection(String uuid) {
 //		return userVoiceRepository.makeUserCollection(uuid);

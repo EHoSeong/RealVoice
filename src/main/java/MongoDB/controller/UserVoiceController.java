@@ -32,6 +32,7 @@ public class UserVoiceController {
 
 		UserVO userVO = new UserVO(userUuid, callingCode, phoneNumber, nickName);
 		userVoiceService.saveUser(userVO);
+		userVoiceService.saveAdminUser(userVO);
 		System.out.println("탐!!!");
 		return ResponseEntity.ok("Registration successful");
 	}
@@ -59,7 +60,7 @@ public class UserVoiceController {
 		return userVO.getUserUuid();
 	}
 
-	@GetMapping("/user/profile")
+	@GetMapping("/user/profile1")
 	public String getProfile(@RequestBody Map<String, String> requestBody) {
 		String phoneNumber = requestBody.get("phoneNumber");
 		UserVO userVO = userVoiceService.findUserInfo(phoneNumber);
@@ -71,6 +72,17 @@ public class UserVoiceController {
 		return res.toString();
 	}
 
+	@GetMapping("/user/profile/{uuid}")
+	public String findUser(@PathVariable Map<String, String> requestBody) {
+		String uuid = requestBody.get("uuid");
+		UserVO userVO = userVoiceService.findUserByUuid("userInfo");
+		JsonObject res = new JsonObject();
+		res.addProperty("phoneNumber", userVO.getPhoneNumber());
+		res.addProperty("nickName", userVO.getNickName());
+		res.addProperty("uuid", userVO.getUserUuid());
+
+		return res.toString();
+	}
 //	@GetMapping("/{userVoiceId}")
 //	public ResponseEntity<UserVO> getUserVoiceById(@PathVariable String userVoiceId) {
 //		UserVO userVoice = userVoiceService.getUserVoiceById(userVoiceId);

@@ -8,7 +8,7 @@ public interface UserVoiceRepository extends MongoRepository<UserVO, String> {
 	// 유저 정보 저장
 //	UserVO save(UserVO user);
 
-	UserVO makeUserCollection(String uuid);
+//	UserVO makeUserCollection(String uuid);
 	
 	UserVO findByPhoneNumber(String phoneNumber);
 	
