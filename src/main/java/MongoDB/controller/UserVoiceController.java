@@ -33,6 +33,8 @@ public class UserVoiceController {
 		UserVO userVO = new UserVO(userUuid, callingCode, phoneNumber, nickName);
 		userVoiceService.saveUser(userVO);
 		userVoiceService.saveAdminUser(userVO);
+		userVoiceService.saveAllUser(userVO);
+
 		System.out.println("탐!!!");
 		return ResponseEntity.ok("Registration successful");
 	}
@@ -40,7 +42,8 @@ public class UserVoiceController {
 	// 전화번호로 User DB 조회하는 함수
 	@GetMapping("/user/voice/{phoneNumber}")
 	public ResponseEntity<UserVO> getUserByPhoneNumber(@PathVariable String phoneNumber) {
-		UserVO userVO = userVoiceService.findUserInfo(phoneNumber);
+
+		UserVO userVO = userVoiceService.getUserByPhoneNumber(phoneNumber);
 		if (userVO != null) {
 			return ResponseEntity.ok(userVO);
 		} else {
@@ -48,11 +51,9 @@ public class UserVoiceController {
 		}
 	}
 
-	@GetMapping("/user/phoneAuth")
-	public String login(@RequestBody Map<String, String> requestBody) {
-		String phoneNumber = requestBody.get("phoneNumber");
-		String uuid = requestBody.get("uuid");
-		UserVO userVO = userVoiceService.findUserInfo(phoneNumber);
+	@GetMapping("/user/phoneAuth/{phoneNumber}")
+	public String login(@PathVariable String phoneNumber) {
+		UserVO userVO = userVoiceService.getUserByPhoneNumber(phoneNumber);
 		if (userVO == null) {
 			// 프론트에 던져줄 메세지
 			return "가입되지 않은 번호입니다";
@@ -60,17 +61,17 @@ public class UserVoiceController {
 		return userVO.getUserUuid();
 	}
 
-	@GetMapping("/user/profile1")
-	public String getProfile(@RequestBody Map<String, String> requestBody) {
-		String phoneNumber = requestBody.get("phoneNumber");
-		UserVO userVO = userVoiceService.findUserInfo(phoneNumber);
-		JsonObject res = new JsonObject();
-		res.addProperty("phoneNumber", userVO.getPhoneNumber());
-		res.addProperty("nickName", userVO.getNickName());
-		res.addProperty("uuid", userVO.getUserUuid());
-
-		return res.toString();
-	}
+//	@GetMapping("/user/profile1")
+//	public String getProfile(@RequestBody Map<String, String> requestBody) {
+//		String phoneNumber = requestBody.get("phoneNumber");
+//		UserVO userVO = userVoiceService.findUserInfo(phoneNumber);
+//		JsonObject res = new JsonObject();
+//		res.addProperty("phoneNumber", userVO.getPhoneNumber());
+//		res.addProperty("nickName", userVO.getNickName());
+//		res.addProperty("uuid", userVO.getUserUuid());
+//
+//		return res.toString();
+//	}
 
 	@GetMapping("/user/profile/{uuid}")
 	public String findUser(@PathVariable Map<String, String> requestBody) {
