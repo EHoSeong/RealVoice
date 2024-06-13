@@ -40,17 +40,6 @@ public class UserVoiceController {
 	}
 
 	// 전화번호로 User DB 조회하는 함수
-	@GetMapping("/user/voice/{phoneNumber}")
-	public ResponseEntity<UserVO> getUserByPhoneNumber(@PathVariable String phoneNumber) {
-
-		UserVO userVO = userVoiceService.getUserByPhoneNumber(phoneNumber);
-		if (userVO != null) {
-			return ResponseEntity.ok(userVO);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-	}
-
 	@GetMapping("/user/phoneAuth/{phoneNumber}")
 	public String login(@PathVariable String phoneNumber) {
 		UserVO userVO = userVoiceService.getUserByPhoneNumber(phoneNumber);
@@ -61,21 +50,9 @@ public class UserVoiceController {
 		return userVO.getUserUuid();
 	}
 
-//	@GetMapping("/user/profile1")
-//	public String getProfile(@RequestBody Map<String, String> requestBody) {
-//		String phoneNumber = requestBody.get("phoneNumber");
-//		UserVO userVO = userVoiceService.findUserInfo(phoneNumber);
-//		JsonObject res = new JsonObject();
-//		res.addProperty("phoneNumber", userVO.getPhoneNumber());
-//		res.addProperty("nickName", userVO.getNickName());
-//		res.addProperty("uuid", userVO.getUserUuid());
-//
-//		return res.toString();
-//	}
-
+	// uuid로 사용자 프로필 조회
 	@GetMapping("/user/profile/{uuid}")
 	public String findUser(@PathVariable Map<String, String> requestBody) {
-		String uuid = requestBody.get("uuid");
 		UserVO userVO = userVoiceService.findUserByUuid("userInfo");
 		JsonObject res = new JsonObject();
 		res.addProperty("phoneNumber", userVO.getPhoneNumber());
@@ -84,20 +61,13 @@ public class UserVoiceController {
 
 		return res.toString();
 	}
-//	@GetMapping("/{userVoiceId}")
-//	public ResponseEntity<UserVO> getUserVoiceById(@PathVariable String userVoiceId) {
-//		UserVO userVoice = userVoiceService.getUserVoiceById(userVoiceId);
-//		if (userVoice != null) {
-//			return ResponseEntity.ok(userVoice);
-//		} else {
-//			return ResponseEntity.notFound().build();
-//		}
-//	}
 
-//	@DeleteMapping("/{userVoiceId}")
-//	public ResponseEntity<String> deleteUserVoice(@PathVariable String userVoiceId) {
-//		userVoiceService.deleteUserVoice(userVoiceId);
-//		return ResponseEntity.ok("User voice deleted successfully.");
-//	}
-
+	// 친구삭제
+	@PostMapping("/friends/remove")
+	public String deleteUserByUuid(@RequestBody Map<String, String> requestBody) {
+		String uuid = requestBody.get("userUuid");
+		userVoiceService.deleteUserByUuid(uuid);
+		userVoiceService.deleteCollectionByUuid(uuid);
+		return "삭제가 완료되었습니다.";
+	}
 }

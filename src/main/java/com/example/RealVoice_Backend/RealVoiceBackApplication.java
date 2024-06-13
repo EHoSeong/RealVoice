@@ -12,8 +12,6 @@ public class RealVoiceBackApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RealVoiceBackApplication.class, args);
-//		UserVoiceService test = new UserVoiceService();
-//		test.saveUserInfo("TestNickName", "test@naver.com", "1111");
 	}
 
 }
