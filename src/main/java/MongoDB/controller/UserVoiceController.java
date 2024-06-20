@@ -50,6 +50,29 @@ public class UserVoiceController {
 		return userVO.getUserUuid();
 	}
 
+	// 친구삭제
+	@PostMapping("/friends/remove")
+	public String deleteUserByUuid(@RequestBody Map<String, String> requestBody) {
+		String uuid = requestBody.get("userUuid");
+		userVoiceService.deleteUserByUuid(uuid);
+		userVoiceService.deleteCollectionByUuid(uuid);
+		return "삭제가 완료되었습니다.";
+	}
+
+	// 친구추가
+	@PostMapping("/friends/addUser")
+	public String addUser(@RequestBody Map<String, String> requestBody) {
+		String requestUuid = requestBody.get("requestUuid");
+		String targetUuid = requestBody.get("targetUuid");
+
+		UserVO requestUser = userVoiceService.getUserByUuid(requestUuid);
+		UserVO targetUser = userVoiceService.getUserByUuid(targetUuid);
+
+		userVoiceService.saveUserbyUuid(targetUser, requestUuid);
+		userVoiceService.saveUserbyUuid(requestUser, targetUuid);
+		return "친구추가가 완료되었습니다.";
+	}
+
 	// uuid로 사용자 프로필 조회
 	@GetMapping("/user/profile/{uuid}")
 	public String findUser(@PathVariable Map<String, String> requestBody) {
@@ -60,14 +83,5 @@ public class UserVoiceController {
 		res.addProperty("uuid", userVO.getUserUuid());
 
 		return res.toString();
-	}
-
-	// 친구삭제
-	@PostMapping("/friends/remove")
-	public String deleteUserByUuid(@RequestBody Map<String, String> requestBody) {
-		String uuid = requestBody.get("userUuid");
-		userVoiceService.deleteUserByUuid(uuid);
-		userVoiceService.deleteCollectionByUuid(uuid);
-		return "삭제가 완료되었습니다.";
 	}
 }

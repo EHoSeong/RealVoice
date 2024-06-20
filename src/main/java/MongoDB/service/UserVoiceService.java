@@ -13,13 +13,15 @@ import MongoDB.vo.UserVO;
 public class UserVoiceService {
 	@Autowired
 	private MongoTemplate mongoTemplate;
-//	삭제예정
-	private UserVoiceRepository userVoiceRepository;
 
 	// 각 uuid별 컬렉션 저장
 	public void saveUser(UserVO user) {
 		String collectionName = user.getUserUuid();
 		mongoTemplate.save(user, collectionName);
+	}
+
+	public void saveUserbyUuid(UserVO user, String userUuid) {
+		mongoTemplate.save(user, userUuid);
 	}
 
 	// adminDB
@@ -35,6 +37,12 @@ public class UserVoiceService {
 	public UserVO getUserByPhoneNumber(String phoneNumber) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("phoneNumber").is(phoneNumber));
+		return mongoTemplate.findOne(query, UserVO.class, "userInfo");
+	}
+
+	public UserVO getUserByUuid(String userUuid) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("userUuid").is(userUuid));
 		return mongoTemplate.findOne(query, UserVO.class, "userInfo");
 	}
 
