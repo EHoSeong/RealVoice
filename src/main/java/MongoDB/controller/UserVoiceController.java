@@ -1,5 +1,6 @@
 package MongoDB.controller;
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
 
@@ -83,5 +86,17 @@ public class UserVoiceController {
 		res.addProperty("uuid", userVO.getUserUuid());
 
 		return res.toString();
+	}
+
+	@PostMapping("/audio/upload")
+	public String recordVoice(@RequestParam("file") MultipartFile file) {
+		try {
+			userVoiceService.storeAudio(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "업로드가 완료되었습니다";
 	}
 }

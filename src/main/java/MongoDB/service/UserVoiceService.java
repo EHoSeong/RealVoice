@@ -1,18 +1,30 @@
 package MongoDB.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
-import MongoDB.repository.UserVoiceRepository;
 import MongoDB.vo.UserVO;
 
 @Service
 public class UserVoiceService {
 	@Autowired
 	private MongoTemplate mongoTemplate;
+
+	@Autowired
+	private GridFsTemplate gridFsTemplate;
+	private static final String UPLOAD_DIR = "C:\\test\\";
 
 	// 각 uuid별 컬렉션 저장
 	public void saveUser(UserVO user) {
@@ -65,6 +77,22 @@ public class UserVoiceService {
 	// 컬렉션 삭제
 	public void deleteCollectionByUuid(String userUuid) {
 		mongoTemplate.dropCollection(userUuid);
+	}
+
+	public String storeAudio(MultipartFile file) throws IOException {
+
+		String fileId = UUID.randomUUID().toString();
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		Path uploadPath = Paths.get(UPLOAD_DIR + fileId);
+
+		if (!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
+		}
+
+		Path filePath = uploadPath.resolve(fileName);
+		file.transferTo(filePath.toFile());
+
+		return fileId;
 	}
 
 }
