@@ -32,8 +32,12 @@ public class UserVoiceController {
 		String callingCode = requestBody.get("callingCode");
 		String phoneNumber = requestBody.get("phoneNumber");
 		String nickName = requestBody.get("nickName");
+		String realName = requestBody.get("realName");
+		String countryName = requestBody.get("countryName");
+		String bio = requestBody.get("bio");
+		String joinYear = requestBody.get("joinYear");
 
-		UserVO userVO = new UserVO(userUuid, callingCode, phoneNumber, nickName);
+		UserVO userVO = new UserVO(userUuid, callingCode, phoneNumber, nickName, realName, countryName, bio, joinYear);
 		userVoiceService.saveUser(userVO);
 		userVoiceService.saveAdminUser(userVO);
 		userVoiceService.saveAllUser(userVO);

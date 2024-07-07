@@ -18,14 +18,23 @@ public class UserVO {
 	private String callingCode;
 	private String phoneNumber;
 	private String nickName;
-	private String collectionName;
+	private String realName;
+	private String countryName;
+	private String bio;
+	private String joinYear;
 
-	public UserVO(String userUuid, String callingCode, String phoneNumber, String nickName) {
+	public UserVO(String userUuid, String callingCode, String phoneNumber, String nickName, String realName,
+			String countryName, String bio, String joinYear) {
 		this.userUuid = userUuid;
 		this.callingCode = callingCode;
 		this.phoneNumber = phoneNumber;
 		this.nickName = nickName;
+		this.realName = realName;
+		this.countryName = countryName;
+		this.bio = bio;
+		this.joinYear = joinYear;
 	}
+
 	public String getUserUuid() {
 		return userUuid;
 	}
@@ -57,12 +66,44 @@ public class UserVO {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
+
 	public String getCollectionName() {
 		return nickName;
 	}
-	
+
 	public void setCollectionName(String nickName) {
 		this.nickName = nickName;
 	}
 
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public String getCountryName() {
+		return countryName;
+	}
+
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
+	}
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
+	public String getJoinYear() {
+		return joinYear;
+	}
+
+	public void setJoinYear(String joinYear) {
+		this.joinYear = joinYear;
+	}
 }
