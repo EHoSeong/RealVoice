@@ -1,30 +1,40 @@
 package MongoDB.vo;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Document(collection = "userInfo") // 실제 몽고 DB 컬렉션 이름
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Document
 public class UserVO {
-
 	private String userUuid;
+
 	private String callingCode;
+
 	private String phoneNumber;
+
 	private String nickName;
+
 	private String realName;
+
 	private String countryName;
+
 	private String bio;
+
 	private String joinYear;
 
+	private String createTime;
+
+	private String userToken;
+
+	private String fileId;
+
+	private LocalDateTime timeStamp;
+
+	public UserVO() {
+	}
+
 	public UserVO(String userUuid, String callingCode, String phoneNumber, String nickName, String realName,
-			String countryName, String bio, String joinYear) {
+			String countryName, String bio, String joinYear, String createTime, String userToken) {
 		this.userUuid = userUuid;
 		this.callingCode = callingCode;
 		this.phoneNumber = phoneNumber;
@@ -33,10 +43,18 @@ public class UserVO {
 		this.countryName = countryName;
 		this.bio = bio;
 		this.joinYear = joinYear;
+		this.createTime = createTime;
+		this.userToken = userToken;
+	}
+
+	public UserVO(String userUuid, String fileId, LocalDateTime timestamp) {
+		this.userUuid = userUuid;
+		this.fileId = fileId;
+		this.timeStamp = timestamp;
 	}
 
 	public String getUserUuid() {
-		return userUuid;
+		return this.userUuid;
 	}
 
 	public void setUserUuid(String userUuid) {
@@ -44,7 +62,7 @@ public class UserVO {
 	}
 
 	public String getCallingCode() {
-		return callingCode;
+		return this.callingCode;
 	}
 
 	public void setCallingCode(String callingCode) {
@@ -52,7 +70,7 @@ public class UserVO {
 	}
 
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return this.phoneNumber;
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
@@ -60,7 +78,7 @@ public class UserVO {
 	}
 
 	public String getNickName() {
-		return nickName;
+		return this.nickName;
 	}
 
 	public void setNickName(String nickName) {
@@ -68,7 +86,7 @@ public class UserVO {
 	}
 
 	public String getCollectionName() {
-		return nickName;
+		return this.nickName;
 	}
 
 	public void setCollectionName(String nickName) {
@@ -76,7 +94,7 @@ public class UserVO {
 	}
 
 	public String getRealName() {
-		return realName;
+		return this.realName;
 	}
 
 	public void setRealName(String realName) {
@@ -84,7 +102,7 @@ public class UserVO {
 	}
 
 	public String getCountryName() {
-		return countryName;
+		return this.countryName;
 	}
 
 	public void setCountryName(String countryName) {
@@ -92,7 +110,7 @@ public class UserVO {
 	}
 
 	public String getBio() {
-		return bio;
+		return this.bio;
 	}
 
 	public void setBio(String bio) {
@@ -100,10 +118,42 @@ public class UserVO {
 	}
 
 	public String getJoinYear() {
-		return joinYear;
+		return this.joinYear;
 	}
 
 	public void setJoinYear(String joinYear) {
 		this.joinYear = joinYear;
+	}
+
+	public String getCreateTime() {
+		return this.createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getUserToken() {
+		return userToken;
+	}
+
+	public void setUserToken(String userToken) {
+		this.userToken = userToken;
+	}
+
+	public String getFileId() {
+		return this.fileId;
+	}
+
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
+
+	public LocalDateTime getTimeStamp() {
+		return this.timeStamp;
+	}
+
+	public void setTimeStamp(LocalDateTime timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 }

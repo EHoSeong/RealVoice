@@ -3,20 +3,23 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.3.1</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.example</groupId>
-	<artifactId>RealVoice_Back</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>RealVoiceSpring</artifactId>
 	<name>RealVoice_Back</name>
 	<description>Demo project for Spring Boot</description>
+
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -48,6 +51,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -55,6 +59,7 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		<!-- Tomcat 의존성 (외부 Tomcat을 사용하므로 provided 스코프로 설정) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
@@ -78,5 +83,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<packaging>jar</packaging> <!-- WAR 파일로 패키징 -->
 
 </project>
